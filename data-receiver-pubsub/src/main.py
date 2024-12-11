@@ -1,5 +1,3 @@
-import json
-
 import functions_framework
 from flask.wrappers import Request
 
@@ -27,7 +25,7 @@ def main(request: Request):
     Method: POST
     Body: RequestSchema (refer: ./core/schemas.py)
     """
-    body_data = json.loads(request.json)
+    body_data = dict(request.json)
     data = parse_data(body_data, RequestSchema)
 
     C = get_config()
