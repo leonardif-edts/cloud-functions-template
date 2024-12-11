@@ -6,7 +6,7 @@ steps:
       - ${_FUNCTION_NAME}
       - --gen2
       - --region=${_REGION}
-      - --runtime
+      - --runtime=python38
       - --source=data-loader-bq/src
       - --entry-point=main
       - --trigger-topic=${_PUBSUB_TOPIC}
@@ -23,6 +23,6 @@ substitutions:
   _FUNCTION_NAME: data-loader-bq-${_ENVIRONMENT}
   _PROJECT_ID: "edts-playpen-leonardi"
   _REGION: "asia-southeast2"
-  _PUBSUB_TOPIC: "projects/${_PROJECT_ID}/topics/test-customer-data"
+  _PUBSUB_TOPIC: "test-customer-data"
   _USER_TABLE: "tmp.users"
   _PRINCIPAL_TIER_TABLE: "tmp.principle_tiers"

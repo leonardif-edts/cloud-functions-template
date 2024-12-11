@@ -1,11 +1,12 @@
 steps:
   - name: gcr.io/cloud-builders/gcloud
     args:
+      - functions
       - deploy
       - ${_FUNCTION_NAME}
       - --gen2
       - --region=${_REGION}
-      - --runtime
+      - --runtime=python38
       - --source=data-loader-bq/src
       - --entry-point=main
       - --trigger-http
