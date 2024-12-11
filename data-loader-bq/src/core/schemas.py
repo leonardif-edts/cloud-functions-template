@@ -70,7 +70,7 @@ class PubSubData(BaseModel):
 
 def parse_data(data: dict, Model: Type[T]) -> T:
     pb_data = PubSubData.model_validate(data)
-    message_content = pb_data.message.data.decode()
+    message_content = json.loads(pb_data.message.data.decode())
     try:
         m = Model.model_validate(message_content)
     except ValidationError as err:

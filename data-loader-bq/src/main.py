@@ -1,3 +1,5 @@
+import json
+
 import functions_framework
 from cloudevents.http import CloudEvent
 
@@ -17,7 +19,7 @@ def main(cloud_event: CloudEvent):
     Source: Pub/Sub
     Data: DataSchema (refer: ./core/schemas.py)
     """
-    body_data = dict(cloud_event.data)
+    body_data = json.loads(cloud_event.data)
     data = parse_data(body_data, DataSchema)
 
     C = get_config()
