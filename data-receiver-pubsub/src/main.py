@@ -1,3 +1,5 @@
+import json
+
 import functions_framework
 from flask.wrappers import Request
 
@@ -25,13 +27,12 @@ def main(request: Request):
     Method: POST
     Body: RequestSchema (refer: ./core/schemas.py)
     """
-    body_data = dict(request.json)
+    body_data = json.loads(request.json)
     data = parse_data(body_data, RequestSchema)
 
     C = get_config()
     pb = PubSubAdapter(C.PUBSUB_PROJECT)
 
-    print("Publishing Data")
     pb_data = data.model_dump_json()
     pb.publish(C.PUBSUB_TOPIC, pb_data)
 

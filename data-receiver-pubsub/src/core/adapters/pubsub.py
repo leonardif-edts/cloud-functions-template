@@ -30,6 +30,5 @@ class PubSubAdapter:
             - data: [str] Message to be published
         """
         __topic = f"projects/{self.__project_id}/topics/{topic}"
-        print(__topic)
         future: Future = self.__pub.publish(__topic, data.encode())
         future.result()
