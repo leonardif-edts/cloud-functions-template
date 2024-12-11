@@ -6,7 +6,7 @@ steps:
       - ${_FUNCTION_NAME}
       - --gen2
       - --region=${_REGION}
-      - --runtime=python38
+      - --runtime=python310
       - --source=data-loader-bq/src
       - --entry-point=main
       - --trigger-http
