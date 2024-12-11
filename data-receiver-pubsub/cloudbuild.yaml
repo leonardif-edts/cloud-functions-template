@@ -1,0 +1,24 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - deploy
+      - ${_FUNCTION_NAME}
+      - --gen2
+      - --region=${_REGION}
+      - --runtime
+      - --source=data-loader-bq/src
+      - --entry-point=main
+      - --trigger-http
+      - --set-env-vars=ENV=${_ENVIRONMENT}
+      - --set-env-vars=PUBSUB_PROJECT=${_PROJECT_ID}
+      - --set-env-vars=PUBSUB_TOPIC=${_PUBSUB_TOPIC}
+
+options:
+  dynamicSubstitutions: true
+
+substitutions:
+  _ENVIRONMENT: '' # Override with Cloud Build
+  _FUNCTION_NAME: data-receiver-pubsub-${_ENVIRONMENT}
+  _PROJECT_ID: "edts-playpen-leonardi"
+  _REGION: "asia-southeast2"
+  _PUBSUB_TOPIC: "test-customer-data"
