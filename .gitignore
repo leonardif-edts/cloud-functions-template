@@ -1,0 +1,6 @@
+# Development
+__pycache__/
+keys/
+.venv/
+.env*
+!.env.example
