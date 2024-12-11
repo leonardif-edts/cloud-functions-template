@@ -6,6 +6,7 @@ steps:
       - ${_FUNCTION_NAME}
       - --gen2
       - --region=${_REGION}
+      - --service-account=${_SERVICE_ACCOUNT}
       - --runtime=python310
       - --source=data-loader-bq/src
       - --entry-point=main
@@ -20,6 +21,7 @@ options:
 
 substitutions:
   _ENVIRONMENT: "" # Override with Cloud Build
+  _SERVICE_ACCOUNT: ""  # Override with Cloud Build
   _PUBSUB_TOPIC: "" # Override with Cloud Build
   _USER_TABLE: "" # Override with Cloud Build
   _PRINCIPAL_TIER_TABLE: "" # Override with Cloud Build
