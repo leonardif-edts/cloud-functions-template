@@ -57,6 +57,7 @@ class InvalidDataException(Exception):
 
 # Helper
 def parse_data(data: dict, Model: Type[T]) -> T:
+    print(data)
     try:
         m = Model.model_validate(data)
     except ValidationError as err:
