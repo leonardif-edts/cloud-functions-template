@@ -18,8 +18,8 @@ options:
   dynamicSubstitutions: true
 
 substitutions:
-  _ENVIRONMENT: '' # Override with Cloud Build
+  _ENVIRONMENT: "" # Override with Cloud Build
+  _PUBSUB_TOPIC: "" # Override with Cloud Build
   _FUNCTION_NAME: data-receiver-pubsub-${_ENVIRONMENT}
   _PROJECT_ID: "edts-playpen-leonardi"
   _REGION: "asia-southeast2"
-  _PUBSUB_TOPIC: "test-customer-data"
