@@ -2,7 +2,7 @@ import json
 from typing import List, Type, TypeVar
 from datetime import datetime
 
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, Base64Bytes, ValidationError
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -56,10 +56,23 @@ class InvalidDataException(Exception):
 
 
 # Helper
+class PubSubMessage(BaseModel):
+    data: Base64Bytes
+    messageId: str
+    message_id: str
+    publishTime: datetime
+    publish_time: datetime
+
+class PubSubData(BaseModel):
+    message: PubSubMessage
+    subscription: str
+
+
 def parse_data(data: dict, Model: Type[T]) -> T:
-    print(data)
+    pb_data = PubSubData.model_validate(data)
+    message_content = pb_data.message.data.decode()
     try:
-        m = Model.model_validate(data)
+        m = Model.model_validate(message_content)
     except ValidationError as err:
         raise InvalidDataException(err.json(indent=2))
     return m
