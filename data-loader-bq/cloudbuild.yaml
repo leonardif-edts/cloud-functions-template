@@ -1,6 +1,7 @@
 steps:
   - name: gcr.io/cloud-builders/gcloud
     args:
+      - functions
       - deploy
       - ${_FUNCTION_NAME}
       - --gen2
