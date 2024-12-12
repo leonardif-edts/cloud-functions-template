@@ -5,8 +5,7 @@ from pydantic_settings import BaseSettings
 
 class Config(BaseSettings):
     BQ_PROJECT: str
-    USER_TABLE: str
-    PRINCIPAL_TIER_TABLE: str
+    BQ_DATASET: str
 
     class Config:
         env_file = None

@@ -21,8 +21,7 @@ def main(cloud_event: CloudEvent):
     data = parse_data(body_data, DataSchema)
 
     C = get_config()
-    bq = BigQueryAdapter(C.BQ_PROJECT)
-    bq.load(data.user, C.USER_TABLE)
-    bq.load(data.principal_tier, C.PRINCIPAL_TIER_TABLE)
+    bq = BigQueryAdapter(C.BQ_PROJECT, C.BQ_DATASET)
+    bq.load(data.data, data.table)
 
     return "OK"

@@ -4,11 +4,6 @@ from pydantic import BaseModel
 from google.cloud.bigquery import Client as BigQueryClient
 
 
-MERGE_QUERY = """
-MERGE INTO 
-"""
-
-
 class BigQueryAdapter:
     """
     BigQuery Adapter
@@ -19,9 +14,11 @@ class BigQueryAdapter:
         - project: [str]. Project ID for BigQuery
     """
     __bq: BigQueryClient
+    __dataset: str
 
-    def __init__(self, project_id: str):
+    def __init__(self, project_id: str, dataset: str):
         self.__bq = BigQueryClient(project_id)
+        self.__dataset = dataset
 
 
     def load(self, data: BaseModel, tablename: str):
@@ -32,8 +29,8 @@ class BigQueryAdapter:
 
         params:
             - data: List[BaseModel] List of data model to be loaded.
-            - tablename: str. Dataset and tablename for BQ (format: dataset.tablename)
+            - dataset: str. Dataset for BQ Table.
         """
-        json_rows = [data.model_dump()]
-        table = self.__bq.get_table(tablename)
-        self.__bq.insert_rows(table, json_rows)
+        full_tablename = f"{self.__dataset}.{tablename}"
+        table = self.__bq.get_table(full_tablename)
+        self.__bq.insert_rows_json(table, [data.model_dump()])

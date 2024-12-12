@@ -36,5 +36,5 @@ def main(request: Request):
 
     return {
         "message": "OK",
-        "data": data.model_dump()
+        "body": data.model_dump()
     }

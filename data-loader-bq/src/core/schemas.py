@@ -1,5 +1,5 @@
 import json
-from typing import List, Type, TypeVar
+from typing import List, Type, TypeVar, Union
 from datetime import datetime
 
 from pydantic import BaseModel, Base64Bytes, ValidationError
@@ -29,8 +29,11 @@ class PrincipalTier(BaseModel):
 
 # Validator
 class DataSchema(BaseModel):
-    user: User
-    principal_tier: PrincipalTier
+    table: str
+    data: Union[
+        User,
+        PrincipalTier
+    ]
 
 
 # Exception
@@ -42,14 +45,7 @@ class InvalidDataException(Exception):
         err_desc = json.loads(val_err)
         self.err_msg = {
             "input": err_desc[0]["input"],
-            "errors": [
-                {
-                    "loc": e["loc"][0],
-                    "msg": e["msg"],
-                    "type": e["type"]
-                }
-                for e in err_desc
-            ]
+            "errors": err_desc
         }
 
         super().__init__(val_err, *args, **kwargs)
@@ -58,14 +54,15 @@ class InvalidDataException(Exception):
 # Helper
 class PubSubMessage(BaseModel):
     data: Base64Bytes
-    messageId: str
-    message_id: str
-    publishTime: datetime
-    publish_time: datetime
+
+    class Config:
+        extra = "allow"
 
 class PubSubData(BaseModel):
     message: PubSubMessage
-    subscription: str
+
+    class Config:
+        extra = "allow"
 
 
 def parse_data(data: dict, Model: Type[T]) -> T:
