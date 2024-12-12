@@ -33,4 +33,4 @@ class BigQueryAdapter:
         """
         full_tablename = f"{self.__dataset}.{tablename}"
         table = self.__bq.get_table(full_tablename)
-        self.__bq.insert_rows_json(table, [data.model_dump()])
+        self.__bq.insert_rows(table, [data.model_dump()])
