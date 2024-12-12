@@ -13,8 +13,7 @@ steps:
       - --trigger-topic=${_PUBSUB_TOPIC}
       - --set-env-vars=ENV=${_ENVIRONMENT}
       - --set-env-vars=BQ_PROJECT=${_PROJECT_ID}
-      - --set-env-vars=USER_TABLE=${_USER_TABLE}
-      - --set-env-vars=PRINCIPAL_TIER_TABLE=${_PRINCIPAL_TIER_TABLE}
+      - --set-env-vars=BQ_DATASET=${_BQ_DATASET}
 
 options:
   dynamicSubstitutions: true
@@ -24,7 +23,7 @@ substitutions:
   _SERVICE_ACCOUNT: ""  # Override with Cloud Build
   _PUBSUB_TOPIC: "" # Override with Cloud Build
   _USER_TABLE: "" # Override with Cloud Build
-  _PRINCIPAL_TIER_TABLE: "" # Override with Cloud Build
+  _BQ_DATASET: "" # Override with Cloud Build
   _FUNCTION_NAME: data-loader-bq-${_ENVIRONMENT}
   _PROJECT_ID: "edts-playpen-leonardi"
   _REGION: "asia-southeast2"
