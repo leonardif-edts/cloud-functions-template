@@ -1,4 +1,5 @@
-from typing import List
+import pytz
+from datetime import datetime
 
 from pydantic import BaseModel
 from google.cloud.bigquery import Client as BigQueryClient
@@ -33,4 +34,7 @@ class BigQueryAdapter:
         """
         full_tablename = f"{self.__dataset}.{tablename}"
         table = self.__bq.get_table(full_tablename)
-        self.__bq.insert_rows(table, [data.model_dump()])
+        self.__bq.insert_rows(table, [{
+            **data.model_dump(),
+            "load_datetime": datetime.now(pytz.timezone("Asia/Jakarta"))
+        }])
