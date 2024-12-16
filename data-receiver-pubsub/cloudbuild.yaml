@@ -8,7 +8,7 @@ steps:
       - --region=${_REGION}
       - --service-account=${_SERVICE_ACCOUNT}
       - --runtime=python310
-      - --source=data-receiver-pubsub/src
+      - --source=${_SERVICE_NAME}/src
       - --entry-point=main
       - --trigger-http
       - --set-env-vars=ENV=${_ENVIRONMENT}
@@ -22,6 +22,7 @@ substitutions:
   _ENVIRONMENT: "" # Override with Cloud Build
   _SERVICE_ACCOUNT: ""  # Override with Cloud Build
   _PUBSUB_TOPIC: "" # Override with Cloud Build
-  _FUNCTION_NAME: data-receiver-pubsub-${_ENVIRONMENT}
+  _SERVICE_NAME: "data-receiver-pubsub"
+  _FUNCTION_NAME: ${_SERVICE_NAME}-${_ENVIRONMENT}
   _PROJECT_ID: "edts-playpen-leonardi"
   _REGION: "asia-southeast2"
